@@ -2,6 +2,10 @@
 
 # Mermaid ダイアグラム抽出ツール
 
+[![Python](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Mermaid](https://img.shields.io/badge/Made%20with-Mermaid-ff69b4.svg)](https://mermaid.js.org/)
+
 テキストファイルやJavaScript文字列リテラルからMermaidダイアグラムを抽出し、個別の`.mmd`ファイルとして保存するPythonツールです。mermaid-cliを使用してSVGやPNG形式の画像としても出力できます。
 
 ## 必要条件

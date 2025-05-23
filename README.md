@@ -2,6 +2,10 @@
 
 # Mermaid Diagram Extractor
 
+[![Python](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Mermaid](https://img.shields.io/badge/Made%20with-Mermaid-ff69b4.svg)](https://mermaid.js.org/)
+
 A Python tool to extract Mermaid diagrams from text files and JavaScript string literals, saving them as individual `.mmd` files. The tool can also convert the diagrams to SVG and PNG formats using mermaid-cli.
 
 ## Requirements
