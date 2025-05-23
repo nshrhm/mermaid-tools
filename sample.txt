@@ -1,0 +1,175 @@
+# Mermaid Diagrams Sample
+
+## Diagram 1
+```mermaid
+graph TD
+subgraph "User Interface"
+        CLI["Command Line Interface"]
+    end
+
+    subgraph "Experiment Control"
+        ModelSelection["Model Selection Module"]
+        BatchProcessing["Batch Processing System"]
+    end
+
+    subgraph "Experiment Execution"
+        ExperimentRunners["Experiment Runners"]
+        PromptManager["Prompt Manager"]
+        ParametersConfig["Parameters Configuration"]
+    end
+
+    subgraph "API Integration"
+        ApiClients["LLM Provider APIs"]
+    end
+
+    subgraph "Result Management"
+        ResultProcessing["Result Processing"]
+        ResultStorage["Results Storage"]
+        ResultAggregation["Result Aggregation"]
+    end
+
+    CLI --> ModelSelection
+    CLI --> BatchProcessing
+    ModelSelection --> ExperimentRunners
+    BatchProcessing --> ExperimentRunners
+    ParametersConfig --> ExperimentRunners
+    ParametersConfig --> PromptManager
+    PromptManager --> ExperimentRunners
+    ExperimentRunners --> ApiClients
+    ApiClients --> ResultProcessing
+    ResultProcessing --> ResultStorage
+    ResultStorage --> ResultAggregation
+```
+
+## Diagram 2
+```mermaid
+graph TD
+    subgraph "Batch Processing System"
+        BatchControl["Batch Control Module"]
+
+        subgraph "Provider-Specific Implementations"
+            OpenAIBatch["OpenAI Batch Runner"]
+            ClaudeBatch["Claude Batch Runner"]
+            KlusterBatch["kluster.ai Batch Runner"]
+        end
+
+        subgraph "Optimization Features"
+            CostOpt["Cost Optimization"]
+            ErrorHandling["Error Handling"]
+            Validation["Result Validation"]
+        end
+    end
+
+    BatchControl --> OpenAIBatch & ClaudeBatch & KlusterBatch
+    OpenAIBatch & ClaudeBatch & KlusterBatch --> CostOpt
+    OpenAIBatch & ClaudeBatch & KlusterBatch --> ErrorHandling
+    ErrorHandling --> Validation
+
+    OpenAIBatch --> OpenAIF["JSONL Format"]
+    ClaudeBatch --> ClaudeF["Message Batches API"]
+    KlusterBatch --> KlusterF["OpenAI-compatible API"]
+```
+
+## Diagram 3
+```mermaid
+flowchart LR
+    subgraph "Result Processing Flow"
+        Response["LLM Response"]
+        Validation["Response Validation"]
+        Extraction["Value & Reason Extraction"]
+        Storage["Result Storage"]
+        Aggregation["Result Aggregation"]
+        Analysis["Analysis & Visualization"]
+    end
+
+    Response --> Validation
+    Validation --> Extraction
+    Extraction --> Storage
+    Storage --> Aggregation
+    Aggregation --> Analysis
+
+    subgraph "Storage Structure"
+        ResultsDir["results/"]
+        ModelDirs["Model-specific directories"]
+        ResultFiles["Standardized result files"]
+    end
+
+    Storage --> ResultsDir
+    ResultsDir --> ModelDirs
+    ModelDirs --> ResultFiles
+```
+
+## Diagram 4
+```mermaid
+flowchart TD
+    Start["Start Experiment"] --> SelectMode{"Single or Batch?"}
+
+    SelectMode -->|"Single"| ModelSelect["Select Model(s)"]
+    SelectMode -->|"Batch"| BatchSetup["Setup Batch Process"]
+
+    ModelSelect --> InitRunner["Initialize Experiment Runner"]
+    BatchSetup --> InitBatch["Initialize Batch Runner"]
+
+    InitRunner & InitBatch --> LoadConfig["Load Configuration Parameters"]
+
+    LoadConfig --> IterateCombinations["Iterate through combinations of\nmodels, personas, and texts"]
+
+    subgraph "For each combination"
+        IterateCombinations --> GeneratePrompt["Generate Prompt"]
+        GeneratePrompt --> CalculateTemp["Calculate Temperature"]
+        CalculateTemp --> ExecuteAPI["Execute API Call"]
+        ExecuteAPI --> ProcessResponse["Process Response"]
+        ProcessResponse --> SaveResult["Save Result"]
+    end
+
+    SaveResult --> MoreCombinations{"More combinations?"}
+    MoreCombinations -->|"Yes"| IterateCombinations
+    MoreCombinations -->|"No"| End["End Experiment"]
+```
+
+## Diagram 5
+```mermaid
+classDiagram
+    class BaseExperimentRunner {
+        +run_experiment()
+        +extract_value()
+        +extract_reason()
+        +save_result()
+    }
+
+    class Parameters {
+        +BASE_PROMPT
+        +SYSTEM_PROMPTS
+        +MODEL_CONFIGS
+        +PERSONAS
+        +TEXTS
+    }
+
+    class PromptManager {
+        +get_prompt()
+        -_calculate_temperature()
+        -_get_base_prompt()
+        -_get_system_prompt()
+        -_adapt_for_model()
+    }
+
+    class ResultProcessing {
+        +process_response()
+        +validate_response()
+        +extract_data()
+        +save_to_file()
+    }
+
+    BaseExperimentRunner <|-- GeminiExperimentRunner
+    BaseExperimentRunner <|-- ClaudeExperimentRunner
+    BaseExperimentRunner <|-- OpenAIExperimentRunner
+    BaseExperimentRunner <|-- GrokExperimentRunner
+    BaseExperimentRunner <|-- DeepSeekExperimentRunner
+    BaseExperimentRunner <|-- LlamaExperimentRunner
+    BaseExperimentRunner <|-- QwenExperimentRunner
+
+    BaseExperimentRunner --> Parameters
+    BaseExperimentRunner --> PromptManager
+    BaseExperimentRunner --> ResultProcessing
+    PromptManager --> Parameters
+```
